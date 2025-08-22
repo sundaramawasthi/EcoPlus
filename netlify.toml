@@ -1,0 +1,12 @@
+[build]
+command = "bash netlify-build.sh"
+publish = "build/web"
+
+[build.environment]
+FLUTTER_CHANNEL = "stable"
+
+# Optional for SPA routing:
+#[[redirects]]
+#  from = "/*"
+#  to = "/index.html"
+#  status = 200
