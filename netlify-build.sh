@@ -1,13 +1,12 @@
 #!/bin/bash
-# Install Flutter SDK on Netlify server
-git clone https://github.com/flutter/flutter.git -b stable --depth 1
+
+# Download Flutter SDK on Netlify server
+if [ ! -d "flutter" ]; then
+  git clone https://github.com/flutter/flutter.git -b stable --depth 1
+fi
+
 export PATH="$PWD/flutter/bin:$PATH"
 
-# Enable Flutter Web
 flutter config --enable-web
-
-# Install dependencies
 flutter pub get
-
-# Build Web
 flutter build web
