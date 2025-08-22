@@ -60,7 +60,12 @@ class HomePage extends ConsumerWidget {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.primary),
-                      onPressed: () {},
+                      onPressed: () {// 👇 Navigate to ReportPage
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const ReportPage()),
+                        );
+                      },
                       child: const Text("Login",
                           style: TextStyle(color: Colors.white)),
                     )
