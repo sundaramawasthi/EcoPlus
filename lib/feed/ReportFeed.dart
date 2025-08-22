@@ -61,7 +61,6 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // User Info
                   Row(
                     children: [
                       CircleAvatar(
@@ -94,13 +93,8 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
                     ],
                   ),
                   const SizedBox(height: 12),
-
-                  // Image
                   Image.memory(report.imageBytes, fit: BoxFit.cover),
-
                   const SizedBox(height: 12),
-
-                  // Meta Chips
                   Wrap(
                     spacing: 10,
                     runSpacing: 8,
@@ -126,10 +120,7 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
                     ],
                   ),
                   const SizedBox(height: 12),
-
-                  // Notes
                   Text(report.notes, style: const TextStyle(fontSize: 15)),
-
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -152,7 +143,8 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
   Widget build(BuildContext context) {
     final reports = ref.watch(reportListProvider);
     final filteredReports = getFilteredReports(reports);
-    final isWide = MediaQuery.of(context).size.width > 800;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isWide = screenWidth > 800;
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -163,42 +155,44 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
       ),
       body: Column(
         children: [
-          // Scrollable content
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                  horizontal: isWide ? 24 : 16, vertical: isWide ? 16 : 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Report Feed", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                  Text("Report Feed",
+                      style: TextStyle(
+                          fontSize: isWide ? 28 : 24,
+                          fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6),
-                  const Text(
+                  Text(
                     "Explore environmental issues reported by the community. Like, comment, and help build a cleaner future.",
-                    style: TextStyle(fontSize: 15, color: Colors.black54),
+                    style: TextStyle(
+                        fontSize: isWide ? 15 : 13, color: Colors.black54),
                   ),
                   const SizedBox(height: 24),
-
-                  // Filters
                   Wrap(
                     spacing: 12,
                     runSpacing: 12,
                     children: [
                       SizedBox(
-                        width: isWide ? 200 : 150,
+                        width: isWide ? 200 : screenWidth * 0.4,
                         child: CategoryDropdown(
                           selected: selectedCategory,
                           onChanged: (val) => setState(() => selectedCategory = val),
                         ),
                       ),
                       SizedBox(
-                        width: isWide ? 200 : 150,
+                        width: isWide ? 200 : screenWidth * 0.4,
                         child: StatusDropdown(
                           selected: selectedStatus,
                           onChanged: (val) => setState(() => selectedStatus = val),
                         ),
                       ),
                       SizedBox(
-                        width: isWide ? 200 : 150,
+                        width: isWide ? 200 : screenWidth * 0.4,
                         child: SortDropdown(
                           selected: selectedSort,
                           onChanged: (val) => setState(() => selectedSort = val),
@@ -208,12 +202,10 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
                     ],
                   ),
                   const SizedBox(height: 24),
-
-                  // Feed
                   filteredReports.isEmpty
-                      ? const Center(child: Text("No reports found."))
+                      ? Center(child: Text("No reports found."))
                       : SizedBox(
-                    height: isWide ? 520 : 450,
+                    height: isWide ? 520 : 420,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: filteredReports.length,
@@ -221,7 +213,7 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
                       itemBuilder: (context, index) {
                         final report = filteredReports[index];
                         return SizedBox(
-                          width: isWide ? 400 : MediaQuery.of(context).size.width * 0.8,
+                          width: isWide ? 400 : screenWidth * 0.8,
                           child: ReportCard(
                             report: report,
                             onLike: () {
@@ -247,8 +239,6 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
               ),
             ),
           ),
-
-          // Footer
           Container(
             width: double.infinity,
             color: Colors.green.shade200,
@@ -257,7 +247,8 @@ class _ReportFeedPageState extends ConsumerState<ReportFeedPage> {
               children: const [
                 Text("© 2025 EcoPulse", style: TextStyle(color: Colors.white)),
                 SizedBox(height: 4),
-                Text("Building a cleaner future together", style: TextStyle(color: Colors.white70, fontSize: 12)),
+                Text("Building a cleaner future together",
+                    style: TextStyle(color: Colors.white70, fontSize: 12)),
               ],
             ),
           ),

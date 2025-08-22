@@ -54,7 +54,8 @@ class _ReportPageState extends ConsumerState<ReportPage> {
 
   Future<void> _pickMedia(ImageSource source) async {
     try {
-      final pickedFile = await picker.pickImage(source: source, imageQuality: 75);
+      final pickedFile =
+      await picker.pickImage(source: source, imageQuality: 75);
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
@@ -69,30 +70,31 @@ class _ReportPageState extends ConsumerState<ReportPage> {
   void _showUploadOptions() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Upload Photo"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.photo_library),
-              title: const Text("Pick from Gallery"),
-              onTap: () {
-                Navigator.pop(context);
-                _pickMedia(ImageSource.gallery);
-              },
+      builder: (context) =>
+          AlertDialog(
+            title: const Text("Upload Photo"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text("Pick from Gallery"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _pickMedia(ImageSource.gallery);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.camera_alt),
+                  title: const Text("Capture Photo"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _pickMedia(ImageSource.camera);
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.camera_alt),
-              title: const Text("Capture Photo"),
-              onTap: () {
-                Navigator.pop(context);
-                _pickMedia(ImageSource.camera);
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 
@@ -109,7 +111,9 @@ class _ReportPageState extends ConsumerState<ReportPage> {
       _showError("Please select a category.");
       return;
     }
-    if (notesController.text.trim().isEmpty) {
+    if (notesController.text
+        .trim()
+        .isEmpty) {
       _showError("Please enter some notes about the report.");
       return;
     }
@@ -145,7 +149,10 @@ class _ReportPageState extends ConsumerState<ReportPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isWide = MediaQuery.of(context).size.width > 800;
+    final isWide = MediaQuery
+        .of(context)
+        .size
+        .width > 800;
 
     return Scaffold(
       body: Column(
@@ -167,7 +174,9 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                           children: [
                             const Text(
                               "Report an Environmental Problem",
-                              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 12),
                             const Text(
@@ -187,16 +196,20 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                       const SizedBox(width: 40),
                       Expanded(
                         child: Card(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
                           elevation: 4,
                           child: Padding(
                             padding: const EdgeInsets.all(24),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
                               children: [
                                 const Text(
                                   "Submit Your Report",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 16),
 
@@ -207,13 +220,17 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                                     height: 180,
                                     decoration: BoxDecoration(
                                       color: Colors.grey[100],
-                                      border: Border.all(color: Colors.grey.shade300),
-                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          color: Colors.grey.shade300),
+                                      borderRadius:
+                                      BorderRadius.circular(8),
                                     ),
                                     child: Center(
                                       child: _mediaBytes == null
-                                          ? const Text("Tap to capture or select photo")
-                                          : Image.memory(_mediaBytes!, fit: BoxFit.cover),
+                                          ? const Text(
+                                          "Tap to capture or select photo")
+                                          : Image.memory(_mediaBytes!,
+                                          fit: BoxFit.cover),
                                     ),
                                   ),
                                 ),
@@ -223,7 +240,9 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                                 const Text("GPS Location"),
                                 Text(_currentPosition == null
                                     ? "Detecting location..."
-                                    : "Lat: ${_currentPosition!.latitude}, Long: ${_currentPosition!.longitude}"),
+                                    : "Lat: ${_currentPosition!
+                                    .latitude}, Long: ${_currentPosition!
+                                    .longitude}"),
                                 const SizedBox(height: 16),
 
                                 // Category Dropdown
@@ -232,11 +251,18 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                                   value: selectedCategory,
                                   hint: const Text("Select category"),
                                   items: const [
-                                    DropdownMenuItem(value: "Food Waste", child: Text("🍲 Food Waste")),
-                                    DropdownMenuItem(value: "Water Pollution", child: Text("💧 Water Pollution")),
-                                    DropdownMenuItem(value: "Climate Issue", child: Text("🌳 Climate Issue")),
+                                    DropdownMenuItem(
+                                        value: "Food Waste",
+                                        child: Text("🍲 Food Waste")),
+                                    DropdownMenuItem(
+                                        value: "Water Pollution",
+                                        child: Text("💧 Water Pollution")),
+                                    DropdownMenuItem(
+                                        value: "Climate Issue",
+                                        child: Text("🌳 Climate Issue")),
                                   ],
-                                  onChanged: (val) => setState(() => selectedCategory = val),
+                                  onChanged: (val) =>
+                                      setState(() => selectedCategory = val),
                                 ),
                                 const SizedBox(height: 16),
 
@@ -245,11 +271,21 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                                 DropdownButtonFormField<String>(
                                   value: selectedStatus,
                                   items: const [
-                                    DropdownMenuItem(value: "Open", child: Text("🟢 Open")),
-                                    DropdownMenuItem(value: "In Progress", child: Text("🟡 In Progress")),
-                                    DropdownMenuItem(value: "Resolved", child: Text("✅ Resolved")),
+                                    DropdownMenuItem(
+                                        value: "Open",
+                                        child: Text("🟢 Open")),
+                                    DropdownMenuItem(
+                                        value: "In Progress",
+                                        child: Text("🟡 In Progress")),
+                                    DropdownMenuItem(
+                                        value: "Resolved",
+                                        child: Text("✅ Resolved")),
                                   ],
-                                  onChanged: (val) => setState(() => selectedStatus = val ?? 'Open'),
+                                  onChanged: (val) =>
+                                      setState(
+                                              () =>
+                                          selectedStatus =
+                                              val ?? 'Open'),
                                 ),
                                 const SizedBox(height: 16),
 
@@ -280,11 +316,151 @@ class _ReportPageState extends ConsumerState<ReportPage> {
                       ),
                     ],
                   )
-                      : const Center(child: Text("Mobile layout not implemented yet")),
+                  // Mobile layout implemented here
+                      : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Report an Environmental Problem",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        "Your vigilance helps us protect our planet. Submit any environmental issue you observe, and our community and partners will work to address it. Every report makes a difference.",
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      const SizedBox(height: 20),
+                      Image.asset(
+                        "assests/images/UI Image.jpg",
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(height: 20),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Submit Your Report",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 12),
+
+                              // Image Picker
+                              GestureDetector(
+                                onTap: _showUploadOptions,
+                                child: Container(
+                                  height: 160,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[100],
+                                    border: Border.all(
+                                        color: Colors.grey.shade300),
+                                    borderRadius:
+                                    BorderRadius.circular(8),
+                                  ),
+                                  child: Center(
+                                    child: _mediaBytes == null
+                                        ? const Text(
+                                        "Tap to capture or select photo")
+                                        : Image.memory(_mediaBytes!,
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+
+                              // Location
+                              const Text("GPS Location"),
+                              Text(_currentPosition == null
+                                  ? "Detecting location..."
+                                  : "Lat: ${_currentPosition!
+                                  .latitude}, Long: ${_currentPosition!
+                                  .longitude}"),
+                              const SizedBox(height: 12),
+
+                              // Category Dropdown
+                              const Text("Category"),
+                              DropdownButtonFormField<String>(
+                                value: selectedCategory,
+                                hint: const Text("Select category"),
+                                items: const [
+                                  DropdownMenuItem(
+                                      value: "Food Waste",
+                                      child: Text("🍲 Food Waste")),
+                                  DropdownMenuItem(
+                                      value: "Water Pollution",
+                                      child: Text("💧 Water Pollution")),
+                                  DropdownMenuItem(
+                                      value: "Climate Issue",
+                                      child: Text("🌳 Climate Issue")),
+                                ],
+                                onChanged: (val) =>
+                                    setState(() => selectedCategory = val),
+                              ),
+                              const SizedBox(height: 12),
+
+                              // Status Dropdown
+                              const Text("Status"),
+                              DropdownButtonFormField<String>(
+                                value: selectedStatus,
+                                items: const [
+                                  DropdownMenuItem(
+                                      value: "Open",
+                                      child: Text("🟢 Open")),
+                                  DropdownMenuItem(
+                                      value: "In Progress",
+                                      child: Text("🟡 In Progress")),
+                                  DropdownMenuItem(
+                                      value: "Resolved",
+                                      child: Text("✅ Resolved")),
+                                ],
+                                onChanged: (val) =>
+                                    setState(
+                                            () =>
+                                        selectedStatus = val ?? 'Open'),
+                              ),
+                              const SizedBox(height: 12),
+
+                              // Notes
+                              const Text("Notes"),
+                              TextField(
+                                controller: notesController,
+                                maxLines: 3,
+                                decoration: const InputDecoration(
+                                  hintText: "Enter additional details",
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+
+                              // Submit Button
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: _submitReport,
+                                  child: const Text("Submit Report"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ),
+
         ],
       ),
     );
