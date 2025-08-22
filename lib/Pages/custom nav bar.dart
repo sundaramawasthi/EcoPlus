@@ -38,10 +38,15 @@ class NavBarhome extends ConsumerWidget {
               // Desktop Nav Items
               if (!isMobile) ...[
                 _NavItem("Home", onTap: () {}),
+                SizedBox(width: 5),
                 _NavItem("Features", onTap: () {}),
+                SizedBox(width: 5),
                 _NavItem("Impact", onTap: () {}),
+                SizedBox(width: 5),
                 _NavItem("Community", onTap: () {}),
+                SizedBox(width: 5),
                 _NavItem("About Us", onTap: () {}),
+                SizedBox(width: 5),
                 _NavItem("Report Feed", onTap: () {
                   Navigator.push(
                     context,
