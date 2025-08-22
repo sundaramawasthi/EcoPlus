@@ -13,53 +13,93 @@ class NavBar extends ConsumerWidget {
     final isMobile = Responsive.isMobile(context);
     final menuOpen = ref.watch(menuOpenProvider);
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: Row(
-        children: [
-          // Logo
-          Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Row(
             children: [
-              Icon(Icons.eco, color: AppTheme.primary, size: 28),
-              const SizedBox(width: 8),
-              Text("EcoPulse",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: AppTheme.primary)),
+              // Logo
+              Row(
+                children: [
+                  Icon(Icons.eco, color: AppTheme.primary, size: 28),
+                  const SizedBox(width: 8),
+                  Text("EcoPulse",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: AppTheme.primary)),
+                ],
+              ),
+              const Spacer(),
+
+              if (!isMobile) ...[
+                _NavItem("Home", onTap: () {}),
+                _NavItem("Features", onTap: () {}),
+                _NavItem("Impact", onTap: () {}),
+                _NavItem("Community", onTap: () {}),
+                _NavItem("About Us", onTap: () {}),
+                _NavItem("Report Feed", onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ReportFeedPage()),
+                  );
+                }),
+                const SizedBox(width: 20),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: AppTheme.primary),
+                  ),
+                  onPressed: () {},
+                  child: const Text("Login",
+                      style: TextStyle(color: AppTheme.primary)),
+                ),
+              ],
+
+              if (isMobile)
+                IconButton(
+                  icon: Icon(menuOpen ? Icons.close : Icons.menu,
+                      color: AppTheme.primary),
+                  onPressed: () {
+                    ref.read(menuOpenProvider.notifier).state = !menuOpen;
+                  },
+                ),
             ],
           ),
-          const Spacer(),
-          if (!isMobile) ...[
-            _NavItem("Home", onTap: () {}),
-            _NavItem("Features", onTap: () {}),
-            _NavItem("Impact", onTap: () {}),
-            _NavItem("Community", onTap: () {}),
-            _NavItem("About Us", onTap: () {}),
-            _NavItem("Report Feed", onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ReportFeedPage()),
-              );
-            }),
-            const SizedBox(width: 20),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: AppTheme.primary)),
-              onPressed: () {},
-              child: const Text("Login",
-                  style: TextStyle(color: AppTheme.primary)),
+        ),
+
+        /// Mobile dropdown menu
+        if (isMobile && menuOpen)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _NavItem("Home", onTap: () {}),
+                _NavItem("Features", onTap: () {}),
+                _NavItem("Impact", onTap: () {}),
+                _NavItem("Community", onTap: () {}),
+                _NavItem("About Us", onTap: () {}),
+                _NavItem("Report Feed", onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ReportFeedPage()),
+                  );
+                }),
+                const SizedBox(height: 12),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: AppTheme.primary),
+                  ),
+                  onPressed: () {},
+                  child: const Text("Login",
+                      style: TextStyle(color: AppTheme.primary)),
+                ),
+              ],
             ),
-          ],
-          if (isMobile)
-            IconButton(
-              icon: Icon(menuOpen ? Icons.close : Icons.menu,
-                  color: AppTheme.primary),
-              onPressed: () =>
-              ref.read(menuOpenProvider.notifier).state = !menuOpen,
-            ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }
@@ -72,7 +112,7 @@ class _NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
         onTap: onTap,
         child: Text(label,

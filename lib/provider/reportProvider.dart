@@ -5,7 +5,8 @@ import '../model/report.dart';
 
 final reportListProvider =
 StateNotifierProvider<ReportListNotifier, List<ReportModel>>(
-        (ref) => ReportListNotifier());
+      (ref) => ReportListNotifier(),
+);
 
 class ReportListNotifier extends StateNotifier<List<ReportModel>> {
   ReportListNotifier() : super([]);
@@ -72,7 +73,7 @@ class ReportListNotifier extends StateNotifier<List<ReportModel>> {
     _updateReport(report, (r) => r.copyWith(notes: notes, status: status));
   }
 
-
+  /// Add a comment
   void addCommentToReport(
       ReportModel report, {
         required String text,

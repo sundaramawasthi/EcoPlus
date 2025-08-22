@@ -1,5 +1,111 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Responsive Filter UI',
+      home: const FilterPage(),
+    );
+  }
+}
+
+class FilterPage extends StatefulWidget {
+  const FilterPage({super.key});
+
+  @override
+  State<FilterPage> createState() => _FilterPageState();
+}
+
+class _FilterPageState extends State<FilterPage> {
+  String? selectedCategory;
+  String? selectedStatus;
+  String sortBy = "Latest";
+
+  void clearFilters() {
+    setState(() {
+      selectedCategory = null;
+      selectedStatus = null;
+      sortBy = "Latest";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Report Feed")),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isMobile = constraints.maxWidth < 600;
+            final spacing = isMobile ? const SizedBox(height: 12) : const SizedBox(width: 12);
+
+            return isMobile
+                ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CategoryDropdown(
+                  selected: selectedCategory,
+                  onChanged: (val) => setState(() => selectedCategory = val),
+                ),
+                spacing,
+                StatusDropdown(
+                  selected: selectedStatus,
+                  onChanged: (val) => setState(() => selectedStatus = val),
+                ),
+                spacing,
+                SortDropdown(
+                  selected: sortBy,
+                  onChanged: (val) => setState(() => sortBy = val),
+                ),
+                spacing,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: ClearFiltersButton(onClear: clearFilters),
+                ),
+              ],
+            )
+                : Row(
+              children: [
+                Expanded(
+                  child: CategoryDropdown(
+                    selected: selectedCategory,
+                    onChanged: (val) => setState(() => selectedCategory = val),
+                  ),
+                ),
+                spacing,
+                Expanded(
+                  child: StatusDropdown(
+                    selected: selectedStatus,
+                    onChanged: (val) => setState(() => selectedStatus = val),
+                  ),
+                ),
+                spacing,
+                Expanded(
+                  child: SortDropdown(
+                    selected: sortBy,
+                    onChanged: (val) => setState(() => sortBy = val),
+                  ),
+                ),
+                spacing,
+                ClearFiltersButton(onClear: clearFilters),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+// ========== Existing widgets (unchanged) ==========
+
 class CategoryDropdown extends StatelessWidget {
   final String? selected;
   final ValueChanged<String?> onChanged;

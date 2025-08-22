@@ -12,7 +12,10 @@ class Footer extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppTheme.dark,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 16 : 24,
+        vertical: isMobile ? 24 : 40,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -22,21 +25,21 @@ class Footer extends StatelessWidget {
               const Text(
                 "EcoPulse",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 16,
                 children: const [
                   Icon(Icons.facebook, color: Colors.white),
-                  SizedBox(width: 16),
                   Icon(Icons.alternate_email, color: Colors.white),
-                  SizedBox(width: 16),
                   Icon(Icons.linked_camera, color: Colors.white),
                 ],
-              )
+              ),
             ],
           )
               : Row(
@@ -45,9 +48,10 @@ class Footer extends StatelessWidget {
               const Text(
                 "EcoPulse",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const Spacer(),
               Row(
@@ -58,7 +62,7 @@ class Footer extends StatelessWidget {
                   SizedBox(width: 16),
                   Icon(Icons.linked_camera, color: Colors.white),
                 ],
-              )
+              ),
             ],
           ),
           const SizedBox(height: 24),

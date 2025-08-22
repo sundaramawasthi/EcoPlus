@@ -6,13 +6,15 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+
     return Text(
       title,
       textAlign: TextAlign.center,
-      style: Theme.of(context)
-          .textTheme
-          .headlineSmall
-          ?.copyWith(fontWeight: FontWeight.bold),
+      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: isMobile ? 20 : null, // override only if mobile
+      ),
     );
   }
 }
