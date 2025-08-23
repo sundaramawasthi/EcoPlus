@@ -115,7 +115,7 @@ class NavBarhome extends ConsumerWidget {
                     MaterialPageRoute(builder: (context) => const MapViewPage()),
                   );
                 }),
-              ],
+
 
               ],
             ),
