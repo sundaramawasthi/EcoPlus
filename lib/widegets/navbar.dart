@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/appTheame.dart';
 import '../core/responsive.dart';
 import '../feed/ReportFeed.dart';
+import '../login and signup/login.dart';
 import '../provider/UI.dart';
 
 class NavBar extends ConsumerWidget {
@@ -12,6 +13,10 @@ class NavBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isMobile = Responsive.isMobile(context);
     final menuOpen = ref.watch(menuOpenProvider);
+
+    void closeMenu() {
+      if (isMobile) ref.read(menuOpenProvider.notifier).state = false;
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,27 +41,27 @@ class NavBar extends ConsumerWidget {
 
               if (!isMobile) ...[
                 _NavItem("Home", onTap: () {}),
-                SizedBox(width: 5,),
+                SizedBox(width: 10,),
                 _NavItem("Features", onTap: () {}),
-                SizedBox(width: 5,),
-                _NavItem("Impact", onTap: () {}),
-                SizedBox(width: 5,),
+                SizedBox(width: 10,),
+                _NavItem("Contact us", onTap: () {}),
+                SizedBox(width: 10,),
                 _NavItem("Community", onTap: () {}),
-                SizedBox(width: 5,),
+                SizedBox(width: 10,),
                 _NavItem("About Us", onTap: () {}),
-                SizedBox(width: 5,),
-                _NavItem("Report Feed", onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ReportFeedPage()),
-                  );
-                }),
-                const SizedBox(width: 5),
+                SizedBox(width: 10,),
+                _NavItem("Report Feed", onTap: () {}),
+                const SizedBox(width: 10),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: AppTheme.primary),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginPage()),
+                    );
+                  },
                   child: const Text("Login",
                       style: TextStyle(color: AppTheme.primary)),
                 ),
@@ -81,23 +86,22 @@ class NavBar extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _NavItem("Home", onTap: () {}),
-                _NavItem("Features", onTap: () {}),
-                _NavItem("Impact", onTap: () {}),
-                _NavItem("Community", onTap: () {}),
-                _NavItem("About Us", onTap: () {}),
-                _NavItem("Report Feed", onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ReportFeedPage()),
-                  );
-                }),
+                _NavItem("Home", onTap: closeMenu),
+                _NavItem("Features", onTap: closeMenu),
+                _NavItem("Impact", onTap: closeMenu),
+                _NavItem("Community", onTap: closeMenu),
+                _NavItem("About Us", onTap: closeMenu),
+                _NavItem("Report Feed", onTap: closeMenu),
                 const SizedBox(height: 12),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: AppTheme.primary),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    closeMenu();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const LoginPage()));
+                  },
                   child: const Text("Login",
                       style: TextStyle(color: AppTheme.primary)),
                 ),

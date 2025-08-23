@@ -1,8 +1,10 @@
+import 'package:ecopulse/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/appTheame.dart';
 import '../core/responsive.dart';
 import '../feed/ReportFeed.dart';
+import '../foodrescue/foodRescue.dart';
 import '../provider/UI.dart';
 import 'mapview.dart'; // ✅ Import your Map View page
 
@@ -41,9 +43,15 @@ class NavBarhome extends ConsumerWidget {
                 SizedBox(width: 5),
                 _NavItem("Features", onTap: () {}),
                 SizedBox(width: 5),
-                _NavItem("Impact", onTap: () {}),
+                _NavItem("Profile", onTap: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UserProfilePage()),
+                );}),
                 SizedBox(width: 5),
-                _NavItem("Community", onTap: () {}),
+                _NavItem("FoodRescueDashboard", onTap: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FoodRescueDashboard()),
+                );}),
                 SizedBox(width: 5),
                 _NavItem("About Us", onTap: () {}),
                 SizedBox(width: 5),

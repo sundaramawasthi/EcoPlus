@@ -1,9 +1,11 @@
 import 'package:ecopulse/Pages/reportpage.dart';
+import 'package:ecopulse/login%20and%20signup/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/appTheame.dart';
 import '../core/responsive.dart';
+import '../profile/profile.dart';
 import '../provider/UI.dart';
 import '../widegets/footer.dart';
 import '../widegets/navbar.dart';
@@ -44,26 +46,39 @@ class HomePage extends ConsumerWidget {
           ),
 
           // 🔹 Mobile Drawer
+// 🔹 Mobile Drawer
           if (menuOpen && Responsive.isMobile(context))
             Positioned.fill(
               child: Container(
                 color: Colors.white,
                 child: Column(
                   children: [
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 40),
+                    // Close button
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        icon: const Icon(Icons.close, size: 28, color: Colors.black87),
+                        onPressed: () {
+                          ref.read(menuOpenProvider.notifier).state = false;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     _DrawerItem("Home"),
                     _DrawerItem("Features"),
                     _DrawerItem("Impact"),
-                    _DrawerItem("Community"),
+                    _DrawerItem("Report Page"),
                     _DrawerItem("About Us"),
                     const SizedBox(height: 40),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.primary),
-                      onPressed: () {// 👇 Navigate to ReportPage
+                      onPressed: () {
+                        // Navigate to LoginPage
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const ReportPage()),
+                          MaterialPageRoute(builder: (_) => const LoginPage()),
                         );
                       },
                       child: const Text("Login",
@@ -73,6 +88,7 @@ class HomePage extends ConsumerWidget {
                 ),
               ),
             ),
+
         ],
       ),
     );
