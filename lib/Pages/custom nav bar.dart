@@ -88,10 +88,21 @@ class NavBarhome extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _NavItem("Home", onTap: () {}),
+
                 _NavItem("Features", onTap: () {}),
-                _NavItem("Impact", onTap: () {}),
-                _NavItem("Community", onTap: () {}),
+
+                _NavItem("Profile", onTap: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UserProfilePage()),
+                );}),
+
+                _NavItem("FoodRescueDashboard", onTap: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FoodRescueDashboard()),
+                );}),
+
                 _NavItem("About Us", onTap: () {}),
+
                 _NavItem("Report Feed", onTap: () {
                   Navigator.push(
                     context,
@@ -104,6 +115,8 @@ class NavBarhome extends ConsumerWidget {
                     MaterialPageRoute(builder: (context) => const MapViewPage()),
                   );
                 }),
+              ],
+
               ],
             ),
           ),
