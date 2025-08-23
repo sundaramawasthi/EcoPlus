@@ -5,8 +5,7 @@ publish = "build/web"
 [build.environment]
 FLUTTER_CHANNEL = "stable"
 
-# Optional for SPA routing:
-#[[redirects]]
-#  from = "/*"
-#  to = "/index.html"
-#  status = 200
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

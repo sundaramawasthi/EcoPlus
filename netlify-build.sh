@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Download Flutter SDK on Netlify server
+# Download Flutter SDK if not exists
 if [ ! -d "flutter" ]; then
   git clone https://github.com/flutter/flutter.git -b stable --depth 1
 fi
